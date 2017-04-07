@@ -55,12 +55,35 @@ public class UserTest {
     }
 
     @Test
-    public void upOrDownVotingNotAllowedByOriginalAuthor() throws Exception {
+    public void upVotingNotAllowedByOriginalQuestioner() throws Exception {
         thrown.expect(VotingException.class);
         thrown.expectMessage("You cannot vote for yourself!");
 
         questioner.upVote(question);
+    }
+
+    @Test
+    public void upVotingNotAllowedByOriginalAnswerer() throws Exception {
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
+
         answerer.upVote(answer);
+    }
+
+    @Test
+    public void downVotingNotAllowedByOriginalQuestioner() throws Exception {
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
+
+        answerer.downVote(answer);
+    }
+
+    @Test
+    public void downVotingNotAllowedByOriginalAnswerer() throws Exception {
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
+
+        answerer.downVote(answer);
     }
 
     @Test
@@ -84,4 +107,5 @@ public class UserTest {
 
         assertEquals(-1, answerer.getReputation());
     }
+
 }
